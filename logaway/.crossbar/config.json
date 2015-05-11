@@ -1,0 +1,83 @@
+
+{
+   "controller": {
+   },
+   "workers": [
+      {
+         "type": "router",
+         "realms": [
+            {
+               "name": "logging",
+               "roles": [
+                  {
+                     "name": "anonymous",
+                     "permissions": [
+                        {
+                           "uri": "*",
+                           "publish": true,
+                           "subscribe": true,
+                           "call": true,
+                           "register": true
+                        }
+                     ]
+                  }
+               ]
+            }
+         ],
+         "transports": [
+            {
+               "type": "websocket",
+               "endpoint": {
+                  "type": "tcp",
+                  "port": 8888
+               },
+               "debug": true,
+               "options": {
+                  "allowed_origins": "http://*"
+               }
+            },
+            {
+               "type": "web",
+               "endpoint": {
+                  "type": "tcp",
+                  "port": 8080
+               },
+               "paths": {
+                    "/": {
+                       "type": "static",
+                       "directory": "../static/html"
+                    },
+                    "css": {
+                       "type": "static",
+                       "directory": "../static/css"
+                    },
+                    "js": {
+                       "type": "static",
+                       "directory": "../static/js"
+                    },
+                    "images": {
+                       "type": "static",
+                       "directory": "../static/images"
+                    },
+
+                    "static_jquery": {
+                       "type": "static",
+                       "package": "js.jquery",
+                       "resource": "resources"
+                    },
+                    "static_jquery_datatables": {
+                       "type": "static",
+                       "package": "js.jquery_datatables",
+                       "resource": "resources"
+                    },
+                    "static_autobahn_js": {
+                      "resource": "resources",
+                      "type": "static",
+                      "package": "js.autobahn"
+                    }
+                }
+            }
+         ]
+      }
+   ]
+}
